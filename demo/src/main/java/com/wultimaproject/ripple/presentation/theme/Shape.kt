@@ -1,4 +1,4 @@
-package com.wultimaproject.ripple.ui.theme
+package com.wultimaproject.ripple.presentation.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes

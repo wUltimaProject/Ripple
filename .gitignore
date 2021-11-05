@@ -21,3 +21,4 @@ gradlew.bat
 .idea/misc.xml
 .idea/vcs.xml
 gradle/wrapper/gradle-wrapper.jar
+.idea/jarRepositories.xml
