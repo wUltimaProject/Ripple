@@ -1,7 +1,30 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
-        compose_version = '1.0.1'
+        compose_version = '1.0.4'
+        activity_ktx_version = '1.2.2'
+        androidx_activity_compose_version = '1.3.0-alpha02'
+        androidx_hilt_compiler_version = '1.0.0-beta01'
+        appcompat_version = '1.3.1'
+        coil_version = '1.2.0'
+        compose_version = '1.0.4'
+        core_ktx_version = '1.6.0'
+        coroutines_version = '1.4.3'
+        fragment_ktx_version = '1.3.6'
+        hilt_android_version = '2.37'
+        hilt_viewmodel_version = '1.0.0-alpha03'
+        kotlinx_serialization_version = '1.1.0'
+        kotlinx_serialization_plugin_version = '1.4.30'
+        kotlin_serialization_converter_version = '0.8.0'
+        kotlin = '1.5.31'
+        lifecycle_version = '2.4.0'
+        material_version = '1.4.0'
+        navigation_version = '2.3.5'
+        navigation_compose_version = '2.4.0-beta01'
+        okhttp_version = '4.9.0'
+        retrofit_version = '2.9.0'
+        room_version = '2.3.0-beta03'
+        timber_version = '4.7.1'
+        uniflow_version = '1.0.5'
     }
     repositories {
         google()
@@ -9,10 +32,9 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.3"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31"
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.39.1'
 
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
     }
 }
 
