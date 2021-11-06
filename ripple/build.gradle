@@ -42,35 +42,15 @@ dependencies {
     implementation "org.uniflow-kt:uniflow-saferesult:$uniflow_version"
 
 
-    implementation "com.google.android.material:material:$material_version"
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.material:material:$compose_version"
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc01"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin"
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigation_version"
-    implementation "androidx.navigation:navigation-compose:$navigation_compose_version"
-
     implementation "com.google.dagger:hilt-android:$hilt_android_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_android_version"
-    implementation "com.jakewharton.timber:timber:$timber_version"
-
-    implementation "androidx.activity:activity-compose:$androidx_activity_compose_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0"
-    implementation "androidx.compose.animation:animation:$compose_version"
-    implementation "androidx.compose.foundation:foundation:$compose_version"
-    implementation "androidx.compose.foundation:foundation-layout:$compose_version"
-    implementation "androidx.compose.material:material:$compose_version"
-    implementation "androidx.compose.material:material-icons-extended:$compose_version"
-    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
-    implementation "androidx.compose.runtime:runtime:$compose_version"
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling:$compose_version"
-
+    implementation "com.jakewharton.timber:timber:$timber_version"
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
