@@ -6,9 +6,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 /**
- * this has just one job: obscure the flow of the implemented viewmodel class.
+ * Created by Antonio Coppola on 06/11/2021.
  */
-abstract class MyViewModel : ViewModel() {
+
+abstract class RippleViewModel : ViewModel() {
     var stateToObserve = MutableStateFlow(MyState())
 
     fun transmitState(value: MyState) {

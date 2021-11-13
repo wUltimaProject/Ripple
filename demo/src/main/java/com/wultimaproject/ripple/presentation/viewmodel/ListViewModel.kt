@@ -1,11 +1,13 @@
 package com.wultimaproject.ripple.presentation.viewmodel
 
-import com.wultimaproject.ripple.presentation.state.ListState
+/**
+ * Created by Antonio Coppola on 06/11/2021.
+ */
+
 import com.wultimaproject.ripple.presentation.state.ListState.*
-import com.wultimaproject.ripple.viewmodel.MyViewModel
+import com.wultimaproject.ripple.viewmodel.RippleViewModel
 
-
-class ListViewModel : MyViewModel() {
+class ListViewModel : RippleViewModel() {
     fun updateStatus() =
         when (getCurrentState()) {
             is Empty -> {

@@ -1,5 +1,9 @@
 package com.wultimaproject.ripple.presentation
 
+/**
+ * Created by Antonio Coppola on 06/11/2021.
+ */
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
