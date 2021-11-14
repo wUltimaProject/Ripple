@@ -9,18 +9,18 @@ import com.wultimaproject.ripple.viewmodel.RippleViewModel
 
 class ListViewModel : RippleViewModel() {
     fun updateStatus() =
-        when (getCurrentState()) {
+        when (getState()) {
             is Empty -> {
-                transmitState(Loading())
+                deliverState(Loading())
             }
             is Loading -> {
-                transmitState(Success())
+                deliverState(Success())
             }
             is Success -> {
-                transmitState(Empty())
+                deliverState(Empty())
             }
             else -> {
-                transmitState(Empty())
+                deliverState(Empty())
             }
         }
 }

@@ -1,4 +1,4 @@
-package com.wultimaproject.ripple.communication.publisher
+package com.wultimaproject.ripple.communication.state.publisher
 
 import com.wultimaproject.ripple.communication.state.RippleState
 
@@ -15,10 +15,13 @@ import com.wultimaproject.ripple.communication.state.RippleState
  * getState = return actual active state
  * getStateFromSuspended = return state from a coroutine, if needed
  */
-interface StateHandler {
-    suspend fun deliverState(state: RippleState)
+
+// DataPublisher
+interface RippleStateHandler {
+//    suspend fun deliverState(state: RippleState)
+//    fun deliverState(block: () -> RippleState)
     fun setState(state: RippleState)
-    suspend fun setState(state: () -> RippleState) = deliverState(state())
+//    suspend fun setState(block: () -> RippleState) = deliverState(block())
     fun getState(): RippleState
     suspend fun getStateFromSuspended(): RippleState
 }
