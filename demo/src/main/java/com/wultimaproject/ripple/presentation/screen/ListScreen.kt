@@ -5,6 +5,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.graphics.Color
+import com.wultimaproject.ripple.communication.state.RippleState
 import com.wultimaproject.ripple.presentation.theme.RippleTheme
 import com.wultimaproject.ripple.presentation.viewmodel.ListViewModel
 
@@ -25,10 +26,12 @@ fun ListMainTheme(
 
 @Composable
 fun RenderState(viewModel: ListViewModel,) {
-    val mState = viewModel.stateToObserve.collectAsState()
-    val actualState = (mState.value)
+//    val mState = viewModel.stateToObserve.collectAsState()
+    val actualState = (RippleState.Loading)
+//    val actualState = (mState.value)
     SetColumn(actualState.toString()) {
-        viewModel.updateStatus()
+        viewModel.getNextState()
+//        viewModel.updateStatus()
     }
 }
 

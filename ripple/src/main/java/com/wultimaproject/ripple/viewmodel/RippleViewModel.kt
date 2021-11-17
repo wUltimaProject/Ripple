@@ -1,9 +1,13 @@
 package com.wultimaproject.ripple.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.wultimaproject.ripple.communication.state.publisher.RippleStateHandler
-import com.wultimaproject.ripple.communication.state.publisher.RippleStatePublisher
+import androidx.lifecycle.viewModelScope
+import com.wultimaproject.ripple.communication.state.RippleDispatcher
+import com.wultimaproject.ripple.communication.state.RippleIntent
 import com.wultimaproject.ripple.communication.state.RippleState
+import com.wultimaproject.ripple.communication.state.RippleStateInterfaceImpl
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 
 /**
  * Created by Antonio Coppola on 06/11/2021.
@@ -17,12 +21,23 @@ import com.wultimaproject.ripple.communication.state.RippleState
  * 3 - caching mechanism
  * 4 - etc
  */
-abstract class RippleViewModel : ViewModel(), RippleStateHandler {
-    private val defaultPublisher: RippleStateHandler = RippleStatePublisher()
+open class RippleViewModel : ViewModel() {
+    val somethingToReturn  = 0
 
-    override fun setState(state: RippleState) = defaultPublisher.setState(state)
-//    override suspend fun setState(block: () -> RippleState) = defaultPublisher.setState(block)
-    override fun getState() = defaultPublisher.getState()
-    override suspend fun getStateFromSuspended() = defaultPublisher.getStateFromSuspended()
-//    override suspend fun deliverState(state: RippleState) = defaultPublisher.deliverState(state)
+    private val intf: RippleStateInterfaceImpl by lazy {
+        RippleStateInterfaceImpl(
+            RippleDispatcher(viewModelScope, Dispatchers.Main)
+        )
+    }
+    @ObsoleteCoroutinesApi
+    fun getState(): RippleState =
+        intf.getState()
+    @ObsoleteCoroutinesApi
+    fun saveState(state: RippleState) {
+        intf.saveState(state)
+    }
+    @ObsoleteCoroutinesApi
+    fun manipulateState(block: RippleIntent) {
+        intf.manipulateState(block)
+    }
 }

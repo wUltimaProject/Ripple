@@ -60,3 +60,7 @@ dependencies {
 
 
 }
+
+kapt {
+    correctErrorTypes = true
+}

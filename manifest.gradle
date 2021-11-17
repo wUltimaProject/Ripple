@@ -9,7 +9,7 @@ ext {
     core_ktx_version = '1.6.0'
     coroutines_version = '1.4.3'
     fragment_ktx_version = '1.3.6'
-    hilt_android_version = '2.37'
+    hilt_android_version = '2.38.1'
     hilt_viewmodel_version = '1.0.0-alpha03'
     kotlinx_serialization_version = '1.1.0'
     kotlinx_serialization_plugin_version = '1.4.30'
