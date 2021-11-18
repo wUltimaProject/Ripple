@@ -15,26 +15,26 @@ import kotlinx.coroutines.flow.StateFlow
 class StateReaderViewModel : RippleViewModel<RenderState, RenderEvent>() {
 
     override val initialState: RenderState
-        get() = Empty()
+        get() = WakeUp()
 
     override val initialEvent: RenderEvent
         get() = RenderEvent.Empty()
 
     fun updateStatus() =
         when (getCurrentState()) {
-            is Empty -> {
-                transmitState(Loading())
+            is WakeUp -> {
+                transmitState(GoToPc())
             }
-            is Loading -> {
-                transmitState(Success())
+            is GoToPc -> {
+                transmitState(WhatToDo())
             }
-            is Success -> {
-                transmitState(Empty())
+            is WhatToDo -> {
+                transmitState(WakeUp())
             }
         }
 
     fun chooseYourSolution(solution: Solution){
-        when(solution){
+        when(solution) {
             Solution.SOL1 -> transmitEvent(RenderEvent.Alcohol())
             Solution.SOL2 -> transmitEvent(RenderEvent.Drugs())
             Solution.SOL3 -> transmitEvent(RenderEvent.Missing())

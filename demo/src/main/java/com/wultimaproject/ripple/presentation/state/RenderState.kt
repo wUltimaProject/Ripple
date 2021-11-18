@@ -1,9 +1,9 @@
 package com.wultimaproject.ripple.presentation.state
 
 sealed class RenderState {
-    data class Empty(val reason: String = "Empty") : RenderState()
-    data class Loading(val reason: String = "Loading") : RenderState()
-    data class Success(val reason: String = "Success") : RenderState()
+    data class WakeUp(val reason: String = "Mi sveglio!") : RenderState()
+    data class GoToPc(val reason: String = "Lancio Slack!") : RenderState()
+    data class WhatToDo(val reason: String = "Bug in produzione!") : RenderState()
 }
 
 sealed class RenderEvent {

@@ -18,11 +18,8 @@ import com.wultimaproject.ripple.presentation.state.RenderState.*
 import com.wultimaproject.ripple.presentation.theme.UselessTheme
 import com.wultimaproject.ripple.presentation.viewmodel.Solution
 import com.wultimaproject.ripple.presentation.viewmodel.StateReaderViewModel
-
-// lateinit var navigator: NavHostController
-// lateinit var classicNavController: NavController
 @Composable
-fun StateReaderScreen(navController: NavController) {
+fun StateReaderScreen() {
     val viewModel: StateReaderViewModel by lazy { StateReaderViewModel() }
 //    InitResponseNavigation()
     StateReaderTheme(viewModel = viewModel)
@@ -42,14 +39,14 @@ fun StateReaderTheme(
 fun RenderState(viewModel: StateReaderViewModel) {
     val actualState = viewModel.stateToObserve.collectAsState().value
     when (actualState) {
-        is Empty ->
+        is WakeUp ->
             SetStateOnScreen(viewModel, actualState.reason) {
                 viewModel.updateStatus()
             }
-        is Loading -> SetStateOnScreen(viewModel, actualState.reason) {
+        is GoToPc -> SetStateOnScreen(viewModel, actualState.reason) {
             viewModel.updateStatus()
         }
-        is Success -> {
+        is WhatToDo -> {
             SetStateOnScreen(viewModel, actualState.reason, true) {
                 viewModel.updateStatus()
             }
@@ -199,15 +196,15 @@ fun CaughtEvent(viewModel: StateReaderViewModel, parentModifier: Modifier) {
 
         val actualEvent = viewModel.eventToObserve.collectAsState().value
         when (actualEvent) {
-            is RenderEvent.Alcohol ->
-//                ConstraintLayout(
-//                modifier = parentModifier.background(Color.Red)
-//            ) {
+            is RenderEvent.Alcohol -> ConstraintLayout(
+                modifier = parentModifier
+            ) {
+                val (textSolution) = createRefs()
                 Text(actualEvent.solution)
-//            }
+            }
 
             is RenderEvent.Drugs -> ConstraintLayout(
-                modifier = parentModifier.background(Color.Red)
+                modifier = parentModifier
             ) {
                 val (textSolution) = createRefs()
                 Text(
@@ -219,7 +216,7 @@ fun CaughtEvent(viewModel: StateReaderViewModel, parentModifier: Modifier) {
                 )
             }
             is RenderEvent.Missing -> ConstraintLayout(
-                modifier = parentModifier.background(Color.Red)
+                modifier = parentModifier
             ) {
                 val (textSolution) = createRefs()
                 Text(

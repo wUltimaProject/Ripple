@@ -19,7 +19,7 @@ class StateReaderFragment : Fragment() {
         savedInstanceState: Bundle?
     ) = ComposeView(requireContext()).apply {
         setContent {
-            StateReaderScreen(findNavController())
+            StateReaderScreen()
         }
     }
 }
