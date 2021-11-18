@@ -9,10 +9,11 @@ import kotlinx.coroutines.launch
  * Created by Antonio Coppola on 06/11/2021.
  */
 
-abstract class RippleViewModel : ViewModel() {
-    var stateToObserve = MutableStateFlow(MyState())
+abstract class RippleViewModel<T> : ViewModel() {
+    abstract val initialState: T
+    val stateToObserve: MutableStateFlow<T> by lazy { MutableStateFlow(initialState) }
 
-    fun transmitState(value: MyState) {
+    fun transmitState(value: T) {
         viewModelScope.launch {
             stateToObserve.value = value
         }
@@ -20,5 +21,3 @@ abstract class RippleViewModel : ViewModel() {
 
     fun getCurrentState() = stateToObserve.value
 }
-
-open class MyState

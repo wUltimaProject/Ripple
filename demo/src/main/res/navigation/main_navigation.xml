@@ -15,6 +15,6 @@
 
     <fragment
         android:label="ListFragment"
-        android:name="com.wultimaproject.ripple.presentation.ListFragment"
+        android:name="com.wultimaproject.ripple.presentation.StateReaderFragment"
         android:id="@+id/listFragment"/>
 </navigation>

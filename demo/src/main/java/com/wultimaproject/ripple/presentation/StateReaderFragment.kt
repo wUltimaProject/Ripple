@@ -9,16 +9,16 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
-import com.wultimaproject.ripple.presentation.screen.ListScreen
+import com.wultimaproject.ripple.presentation.screen.StateReaderScreen
 
-class ListFragment : Fragment() {
+class StateReaderFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ) = ComposeView(requireContext()).apply {
         setContent {
-            ListScreen()
+            StateReaderScreen()
         }
     }
 }
