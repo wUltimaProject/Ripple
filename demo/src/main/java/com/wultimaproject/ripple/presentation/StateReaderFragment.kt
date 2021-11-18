@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.wultimaproject.ripple.presentation.screen.StateReaderScreen
 
 class StateReaderFragment : Fragment() {
@@ -18,7 +19,7 @@ class StateReaderFragment : Fragment() {
         savedInstanceState: Bundle?
     ) = ComposeView(requireContext()).apply {
         setContent {
-            StateReaderScreen()
+            StateReaderScreen(findNavController())
         }
     }
 }

@@ -6,15 +6,19 @@ package com.wultimaproject.ripple.presentation.viewmodel
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import com.wultimaproject.ripple.presentation.state.ListState
-import com.wultimaproject.ripple.presentation.state.ListState.*
+import com.wultimaproject.ripple.presentation.state.RenderEvent
+import com.wultimaproject.ripple.presentation.state.RenderState
+import com.wultimaproject.ripple.presentation.state.RenderState.*
 import com.wultimaproject.ripple.viewmodel.RippleViewModel
 import kotlinx.coroutines.flow.StateFlow
 
-class ListViewModel : RippleViewModel<ListState>() {
+class StateReaderViewModel : RippleViewModel<RenderState, RenderEvent>() {
 
-    override val initialState: ListState
+    override val initialState: RenderState
         get() = Empty()
+
+    override val initialEvent: RenderEvent
+        get() = RenderEvent.Empty()
 
     fun updateStatus() =
         when (getCurrentState()) {
@@ -28,6 +32,20 @@ class ListViewModel : RippleViewModel<ListState>() {
                 transmitState(Empty())
             }
         }
+
+    fun chooseYourSolution(solution: Solution){
+        when(solution){
+            Solution.SOL1 -> transmitEvent(RenderEvent.Alcohol())
+            Solution.SOL2 -> transmitEvent(RenderEvent.Drugs())
+            Solution.SOL3 -> transmitEvent(RenderEvent.Missing())
+        }
+    }
+}
+
+enum class Solution{
+    SOL1,
+    SOL2,
+    SOL3
 }
 
 @Composable

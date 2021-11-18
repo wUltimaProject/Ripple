@@ -12,19 +12,26 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.wultimaproject.ripple.presentation.state.ListState.*
+import androidx.navigation.NavController
+import com.wultimaproject.ripple.presentation.state.RenderEvent
+import com.wultimaproject.ripple.presentation.state.RenderState.*
 import com.wultimaproject.ripple.presentation.theme.UselessTheme
-import com.wultimaproject.ripple.presentation.viewmodel.ListViewModel
+import com.wultimaproject.ripple.presentation.viewmodel.Solution
+import com.wultimaproject.ripple.presentation.viewmodel.StateReaderViewModel
 
+// lateinit var navigator: NavHostController
+// lateinit var classicNavController: NavController
 @Composable
-fun StateReaderScreen() {
-    val viewModel: ListViewModel by lazy { ListViewModel() }
+fun StateReaderScreen(navController: NavController) {
+    val viewModel: StateReaderViewModel by lazy { StateReaderViewModel() }
+//    InitResponseNavigation()
     StateReaderTheme(viewModel = viewModel)
+//    classicNavController = navController
 }
 
 @Composable
 fun StateReaderTheme(
-    viewModel: ListViewModel,
+    viewModel: StateReaderViewModel,
 ) = UselessTheme {
     Surface(color = MaterialTheme.colors.background) {
         RenderState(viewModel = viewModel)
@@ -32,28 +39,33 @@ fun StateReaderTheme(
 }
 
 @Composable
-fun RenderState(viewModel: ListViewModel) {
+fun RenderState(viewModel: StateReaderViewModel) {
     val actualState = viewModel.stateToObserve.collectAsState().value
-//    val secondState = viewModel.stateToObserve.returnMyValue(mValue = ListState::class.java)
     when (actualState) {
-        is Empty -> actualState.reason
-        is Loading -> actualState.reason
-        is Success -> actualState.reason
-    }.also {
-        SetColumn(it) {
+        is Empty ->
+            SetStateOnScreen(viewModel, actualState.reason) {
+                viewModel.updateStatus()
+            }
+        is Loading -> SetStateOnScreen(viewModel, actualState.reason) {
             viewModel.updateStatus()
+        }
+        is Success -> {
+            SetStateOnScreen(viewModel, actualState.reason, true) {
+                viewModel.updateStatus()
+            }
         }
     }
 }
 
 @Composable
-fun SetColumn(stateName: String?, onClick: (() -> Unit)? = null) {
-    ConstraintLayout(
-
-        modifier = Modifier
-            .background(Color.Green)
-    ) {
-        val (button) = createRefs()
+fun SetStateOnScreen(
+    viewModel: StateReaderViewModel,
+    stateName: String?,
+    showNavigationBox: Boolean = false,
+    onClick: (() -> Unit)? = null
+) {
+    ConstraintLayout {
+        val (button, boxNavigation, resultNavigation) = createRefs()
         val alignmentButton = Modifier.constrainAs(
             button
         ) {
@@ -61,14 +73,35 @@ fun SetColumn(stateName: String?, onClick: (() -> Unit)? = null) {
             end.linkTo(parent.end)
             bottom.linkTo(parent.bottom)
         }
+        val alignmentNavigationBox = Modifier.constrainAs(
+            boxNavigation
+        ) {
+            top.linkTo(parent.top)
+            bottom.linkTo(parent.bottom)
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+        }
+
+        val alignmentResponse = Modifier.constrainAs(
+            resultNavigation
+        ) {
+            bottom.linkTo(button.top)
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+        }
 
         stateName?.let { name ->
+
             StateOfTheFragment(name)
             onClick?.let {
                 SetButton(
-                    modifier = alignmentButton ,
+                    modifier = alignmentButton,
                     onClickListener = onClick,
                 )
+            }
+            if (showNavigationBox) {
+                ShowEventBox(viewModel, alignmentNavigationBox)
+                CaughtEvent(viewModel = viewModel, parentModifier = alignmentResponse)
             }
         } ?: run {
             StateOfTheFragment("no state available")
@@ -100,10 +133,125 @@ fun StateOfTheFragment(name: String) {
     Text(
         text = "State is: $name!",
         modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.Yellow),
+            .fillMaxWidth(),
         textAlign = TextAlign.Center,
         fontSize = 20.sp,
         fontWeight = FontWeight.Bold
     )
+}
+
+@Composable
+fun ShowEventBox(viewModel: StateReaderViewModel, parentModifier: Modifier) {
+    val showEventModifier = parentModifier
+        .height(180.dp)
+        .fillMaxWidth()
+
+    ConstraintLayout(
+        modifier = showEventModifier
+    ) {
+        val (btn1, btn2, btn3) = createRefs()
+        Button(
+            modifier = Modifier.constrainAs(btn1) {
+                top.linkTo(parent.top)
+                start.linkTo(parent.start)
+                end.linkTo(btn2.start)
+            },
+            onClick = {
+                viewModel.chooseYourSolution(Solution.SOL1)
+            }
+        ) {
+            Text("Busta n.1")
+        }
+        Button(
+            modifier = Modifier.constrainAs(btn2) {
+                top.linkTo(parent.top)
+                start.linkTo(btn1.end)
+                end.linkTo(btn3.start)
+            },
+            onClick = {
+                viewModel.chooseYourSolution(Solution.SOL2)
+            }
+        ) {
+            Text("Busta n.2")
+        }
+        Button(
+            modifier = Modifier.constrainAs(btn3) {
+                top.linkTo(parent.top)
+                start.linkTo(btn2.end)
+                end.linkTo(parent.end)
+            },
+            onClick = {
+                viewModel.chooseYourSolution(Solution.SOL3)
+            }
+        ) {
+            Text("Busta n.3")
+        }
+    }
+}
+
+@Composable
+fun CaughtEvent(viewModel: StateReaderViewModel, parentModifier: Modifier) {
+    ConstraintLayout(
+        modifier = parentModifier
+            .height(180.dp)
+            .fillMaxWidth()
+    ) {
+
+        val actualEvent = viewModel.eventToObserve.collectAsState().value
+        when (actualEvent) {
+            is RenderEvent.Alcohol ->
+//                ConstraintLayout(
+//                modifier = parentModifier.background(Color.Red)
+//            ) {
+                Text(actualEvent.solution)
+//            }
+
+            is RenderEvent.Drugs -> ConstraintLayout(
+                modifier = parentModifier.background(Color.Red)
+            ) {
+                val (textSolution) = createRefs()
+                Text(
+                    actualEvent.solution,
+                    modifier = Modifier.constrainAs(textSolution) {
+                        bottom.linkTo(parent.bottom)
+                        start.linkTo(parent.start)
+                    }
+                )
+            }
+            is RenderEvent.Missing -> ConstraintLayout(
+                modifier = parentModifier.background(Color.Red)
+            ) {
+                val (textSolution) = createRefs()
+                Text(
+                    actualEvent.solution,
+                    modifier = Modifier.constrainAs(textSolution) {
+                        bottom.linkTo(parent.bottom)
+                        start.linkTo(parent.start)
+                    }
+                )
+            }
+            else -> {}
+        }
+    }
+}
+
+@Composable
+fun Result1() {
+    Row(Modifier.background(Color.Green)) {
+        Text("Mi ubriaco", Modifier.background(Color.Black))
+    }
+}
+
+@Composable
+fun Result2() {
+    Row(Modifier.background(Color.Yellow)) {
+        Text("Mi drogo", Modifier.background(Color.Black))
+    }
+}
+
+@Composable
+fun Result3() {
+    Row(Modifier.background(Color.Magenta)) {
+        Text("Mi butto latitante", Modifier.background(Color.Black))
+    }
 }
