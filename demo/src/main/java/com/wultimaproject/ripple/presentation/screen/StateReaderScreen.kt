@@ -1,7 +1,10 @@
 package com.wultimaproject.ripple.presentation.screen
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -12,18 +15,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.navigation.NavController
 import com.wultimaproject.ripple.presentation.state.RenderEvent
 import com.wultimaproject.ripple.presentation.state.RenderState.*
 import com.wultimaproject.ripple.presentation.theme.UselessTheme
 import com.wultimaproject.ripple.presentation.viewmodel.Solution
 import com.wultimaproject.ripple.presentation.viewmodel.StateReaderViewModel
+
 @Composable
 fun StateReaderScreen() {
     val viewModel: StateReaderViewModel by lazy { StateReaderViewModel() }
-//    InitResponseNavigation()
     StateReaderTheme(viewModel = viewModel)
-//    classicNavController = navController
 }
 
 @Composable
@@ -157,7 +158,7 @@ fun ShowEventBox(viewModel: StateReaderViewModel, parentModifier: Modifier) {
                 viewModel.chooseYourSolution(Solution.SOL1)
             }
         ) {
-            Text("Busta n.1")
+            Text("Soluzione n.1")
         }
         Button(
             modifier = Modifier.constrainAs(btn2) {
@@ -169,7 +170,7 @@ fun ShowEventBox(viewModel: StateReaderViewModel, parentModifier: Modifier) {
                 viewModel.chooseYourSolution(Solution.SOL2)
             }
         ) {
-            Text("Busta n.2")
+            Text("Soluzione n.2")
         }
         Button(
             modifier = Modifier.constrainAs(btn3) {
@@ -181,7 +182,7 @@ fun ShowEventBox(viewModel: StateReaderViewModel, parentModifier: Modifier) {
                 viewModel.chooseYourSolution(Solution.SOL3)
             }
         ) {
-            Text("Busta n.3")
+            Text("Soluzione n.3")
         }
     }
 }
