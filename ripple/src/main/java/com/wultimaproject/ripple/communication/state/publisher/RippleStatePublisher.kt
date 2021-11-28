@@ -66,7 +66,6 @@ open class RippleStatePublisher(
 
 // uniflow = ActionReducer
 open class RippleConverter(
-    private val defaultPublisher: RippleStatePublisher,
     private val coroutineScope: CoroutineScope,
     private val defaultDispatcher: CoroutineDispatcher,
     defaultCapacity: Int = Channel.BUFFERED,
