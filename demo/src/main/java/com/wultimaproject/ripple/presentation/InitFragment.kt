@@ -13,7 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.wultimaproject.ripple.R
 import com.wultimaproject.ripple.presentation.screen.IntroScreen
 
-class InitFragment : Fragment() {
+class  InitFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

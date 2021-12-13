@@ -10,15 +10,15 @@
         android:id="@+id/initFragment">
         <action
             android:id="@+id/action_initFragment_to_listFragment"
-            app:destination="@id/listFragment" />
+            app:destination="@id/stateReaderFragment" />
     </fragment>
 
     <fragment
         android:label="StateReaderFragment"
         android:name="com.wultimaproject.ripple.presentation.StateReaderFragment"
-        android:id="@+id/listFragment">
+        android:id="@+id/stateReaderFragment">
         <action
-            android:id="@+id/action_listFragment_to_navigationFragment"
+            android:id="@+id/action_stateReaderFragment_to_navigationFragment"
             app:destination="@id/navigationFragment" />
     </fragment>
 
